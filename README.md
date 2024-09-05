@@ -19,4 +19,4 @@
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/Job-Portal.git
+git clone https://github.com/Pradeep7867/Job-Portal.git
