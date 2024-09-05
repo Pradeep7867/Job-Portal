@@ -1,0 +1,17 @@
+# Ignore node_modules folders
+backend/node_modules/
+frontend/node_modules/
+
+# Ignore environment variable files
+backend/.env
+frontend/.env
+
+# Ignore any .DS_Store files (for macOS users)
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Optional: Ignore build files from frontend (if any)
+frontend/build/
