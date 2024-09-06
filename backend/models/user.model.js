@@ -16,26 +16,26 @@ const userSchema = new mongoose.Schema({
   },
 
   password: {
-    type: password,
+    type: String,
     required : true
   },
   role:{
     type: String,
-    enum: ['student', 'recruiter' ],
+    enum: ['student', 'recruiter' ], //Role can only be 'student' or 'recruiter 
     required : true
   },
 
   profile:{
     bio:{type: String},
     skills:[{type: String}],
-    resume : {type : String},
-    resumeOrigninalName : {type: String},
+    resume : {type : String},//Url to Resume file
+    resumeOriginalName : {type: String},
     company :{type:mongoose.Schema.Types.ObjectId, ref:'Company'},
-    profilePhots :{
+    profilePhoto :{
       type : String,
       default: ""
     }
-  },
+  }
 }, {timestamps:true});
 
-export const User = mongoose.Schema('User', userSchema);
+export const User = mongoose.model('User', userSchema);
