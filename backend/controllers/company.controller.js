@@ -24,7 +24,7 @@ export const registerCompany = async (req, res) => {
     });
 
     return res.status(201).json({
-      message: "Company Refisterd Sucessfully",
+      message: "Company Registerd Sucessfully",
       company,
       success: true,
     });
@@ -68,13 +68,13 @@ export const getCompanyById = async (req, res) => {
     const companyId = req.params.id;
     const company = await Company.findById(companyId);
 
-    id(!company);
-    {
+    if (!company) {  // If company is not found, send a 404 response
       return res.status(404).json({
         message: "Company Not Found",
         success: false,
       });
     }
+
     return res.status(200).json({
       company,
       success: true,

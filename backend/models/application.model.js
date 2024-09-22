@@ -21,4 +21,7 @@ const applicationSchema = new mongoose.Schema({
   }
 
 }, {timestamps: true});
+// Indexing for performance
+applicationSchema.index({ job: 1 });
+applicationSchema.index({ applicant: 1 });
 export const Application = mongoose.model("Application", applicationSchema);

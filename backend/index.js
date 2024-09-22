@@ -7,6 +7,8 @@ import {User} from "./models/user.model.js"
 import userRoute from "./routes/user.routes.js";
 
 import companyRoute from "./routes/company.route.js";
+import jobRoute from "./routes/job.route.js";
+import applicationRoute from "./routes/application.route.js"; 
 
 //configuration 
 dotenv.config({}); // Load environment variables from .env
@@ -40,6 +42,8 @@ const PORT = process.env.PORT || 3000;
 //Api
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/job", jobRoute);
+app.use("/api/v1/job", applicationRoute);
 // "http://localhost:8000/api/v1/user/register"
 // "http://localhost:8000/api/v1/user/login"
 // "http://localhost:8000/api/v1/user/profile/update"
