@@ -3,7 +3,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
-import User from "./models/user.model.js"
+import {User} from "./models/user.model.js"
+import userRoute from "./routes/user.routes.js";
+
+import companyRoute from "./routes/company.route.js";
 
 //configuration 
 dotenv.config({}); // Load environment variables from .env
@@ -33,6 +36,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
+
+//Api
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/company", companyRoute);
+// "http://localhost:8000/api/v1/user/register"
+// "http://localhost:8000/api/v1/user/login"
+// "http://localhost:8000/api/v1/user/profile/update"
+//...
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is Running at Port ${PORT}`);

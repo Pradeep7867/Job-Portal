@@ -4,7 +4,8 @@ const companySchema = new mongoose.Schema({
 
   name : {
     type : String,
-    required : true
+    required : true,
+    unique : true
   },
   description : {
     type : String,
@@ -18,12 +19,11 @@ const companySchema = new mongoose.Schema({
   },
   logo : {
     type : String, //URL to company Logo
-    required : true
   },
   userId : {
     type :mongoose.Schema.Types.ObjectId,
-    ref : 'User',
-    required: true
+    ref : 'User'
   }
 }, {timestamps:true});
-export const company = mongoose.model("company", companySchema);
+
+export const Company = mongoose.model("Company", companySchema);
