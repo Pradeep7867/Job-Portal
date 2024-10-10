@@ -1,4 +1,5 @@
 import { Application } from "../models/application.model.js";
+import { User } from "../models/user.model.js";
 import { Job } from "../models/job.model.js";
 
 // Apply for a Job
@@ -149,7 +150,7 @@ export const updateStatus = async (req, res) => {
       });
     }
 
-    // Find the application by ID
+    // Find the application by Application ID
     const application = await Application.findById(applicationId);
 
     if (!application) {
