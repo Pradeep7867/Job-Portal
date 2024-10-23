@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 export const regiter = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
+    console.log(fullname, email, phoneNumber, password, role);
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
         message: "Something is Missing",
@@ -85,11 +86,11 @@ export const login = async (req, res) => {
     }
 
     // Prepare data for token
-    const tokdenData = {
+    const tokenData = {
       userId: user._id,
     };
 
-    const token = jwt.sign(tokdenData, process.env.SECRET_KEY, {
+    const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
 
