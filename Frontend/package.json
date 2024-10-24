@@ -16,7 +16,7 @@
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-radio-group": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
-    "@reduxjs/toolkit": "^2.2.8",
+    "@reduxjs/toolkit": "^2.3.0",
     "@rollup/plugin-alias": "^5.1.1",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",

@@ -1,5 +1,7 @@
 #3:48:56
 
-//Sign Up - Completed 
 
-#4:02:21
+//Sign Up - Register
+# 4:30:38 
+
+//Login Functionality 
