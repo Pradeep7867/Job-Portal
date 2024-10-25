@@ -28,10 +28,10 @@ const Navbar = () => {
             </ul>
             {!user ? (
               <div className="flex items-center gap-2">
-                <Link to="/login"><Button variant="outline">Login</Button></Link>
+                <Link to="/login"><Button variant="outline" className="hover:bg-[#877f96ee]">Login</Button></Link>
                 <Link to="/signup">
                 <Button
-                  className="bg-[#6A38C2] hover: bg-[#5b0ae8]"
+                  className=" hover: bg-[#6A38C2]"
                   variant="outline"> SignUp
                 </Button>
                 </Link>
