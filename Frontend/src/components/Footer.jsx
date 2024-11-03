@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className="bg-gray-100 text-gray-700">
       <div className="max-w-screen-xl mx-auto p-6">
         {/* Logo Section */}
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-1">
           <img src={logo} alt="Naukri Logo" className="w-32 h-auto" />
         </div>
 
