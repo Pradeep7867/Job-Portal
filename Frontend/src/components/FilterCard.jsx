@@ -1,5 +1,5 @@
-import React from "react";
-import { RadioGroup, RadioGroupItem } from './ui/radio-group'
+import React, { useState } from "react";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Label } from "./ui/label";
 
 const filterData = [
@@ -16,7 +16,7 @@ const filterData = [
       "Jaipur",
       "Ajmer",
       "Mumbai (All Areas)",
-      "Navi Mumbai",
+      "Ahemdabad",
       "Mohali",
       "Gurugram",
       "Kolkata",
@@ -61,32 +61,43 @@ const filterData = [
 ];
 
 const FilterCard = () => {
+  const [openFilters, setOpenFilters] = useState([]);
+
+  const toggleFilter = (filterType) => {
+    setOpenFilters((prevOpenFilters) =>
+      prevOpenFilters.includes(filterType)
+        ? prevOpenFilters.filter((type) => type !== filterType) // Close the filter if it's open
+        : [...prevOpenFilters, filterType] // Open the filter if it's closed
+    );
+  };
+
   return (
     <div className="w-full bg-white p-3 rounded-md">
       <h1 className="font-bold text-lg">Filter Jobs</h1>
       <hr className="mt-3" />
-      <RadioGroup>
-        {
-          filterData.map((data, item)=>
-          (
-            <div>
-              {/* Categories */}
-              <h1 className="font-bold text-lg">{data.filterType}</h1>
-              {
-                data.array.map((item, index)=>{
-                  return (
-                    <div className="flex items-center space-x-2 my-2">
-                      <RadioGroupItem value={item} />
-                      <Label>{item}</Label>
-                    </div>
-                  )
-                }
-              )}
+      {filterData.map((data, index) => (
+        <div key={index} className="mt-4">
+          <div
+            onClick={() => toggleFilter(data.filterType)}
+            className="flex justify-between items-center cursor-pointer"
+          >
+            <h2 className="font-bold text-lg">{data.filterType}</h2>
+            <span>{openFilters.includes(data.filterType) ? "-" : "+"}</span>
+          </div>
+          {openFilters.includes(data.filterType) && (
+            <div className="mt-2">
+              <RadioGroup>
+                {data.array.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 my-2">
+                    <RadioGroupItem value={item} />
+                    <Label>{item}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
             </div>
-          ))
-        }
-      </RadioGroup>
-
+          )}
+        </div>
+      ))}
     </div>
   );
 };
