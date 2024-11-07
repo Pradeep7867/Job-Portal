@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import logo from "./NaukriLogo.png";
@@ -7,10 +7,13 @@ import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobsTable from "./AppliedJobsTable";
+import UpdateProfileDialog from "./UpdateProfileDialog";
 
 const skills = ["Html", "Css", "JavaScript", "React", "Cloud"];
+const isResume = true;
 const Profile = () => {
-  const isResume = true;
+  //By default false
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Navbar></Navbar>
@@ -29,7 +32,7 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <Button className="text-right" variant="outline">
+          <Button onClick={()=> setOpen(true)} className="text-right" variant="outline">
             <Pen />
           </Button>
         </div>
@@ -40,7 +43,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>+91 6375275042</span>
+            <span>6375275042</span>
           </div>
         </div>
         {/* Skills Showcase  */}
@@ -72,14 +75,13 @@ const Profile = () => {
           )}
         </div>
       </div>
-       {/* Applied Jobs  */}
-       <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-          <h1 className="font-bold text-lg my-5"> Applied Jobs </h1>
-          {/* Applied Job Table Component */}
-          <AppliedJobsTable/>
-
-
-        </div>
+      {/* Applied Jobs  */}
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1 className="font-bold text-lg my-5"> Applied Jobs </h1>
+        {/* Applied Job Table Component */}
+        <AppliedJobsTable />
+      </div>
+      <UpdateProfileDialog open={open} setOpen={setOpen}/>
     </div>
   );
 };
