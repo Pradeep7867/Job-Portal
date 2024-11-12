@@ -21,7 +21,7 @@ const AppliedJobsTable = () => {
               <TableHead>Date</TableHead>
               <TableHead>Job Role</TableHead>
               <TableHead>Company</TableHead>
-              <TableHead classname="text-right">Status</TableHead>
+              <TableHead className="text-right">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -31,7 +31,7 @@ const AppliedJobsTable = () => {
                 <TableCell>17/07/2024</TableCell>
                 <TableCell>Frontend Developer</TableCell>
                 <TableCell>Amazon</TableCell>
-                <TableCell classname="text-right">
+                <TableCell className="text-right">
                   <Badge>Selected</Badge>
                 </TableCell>
               </TableRow>

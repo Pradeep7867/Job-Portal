@@ -8,12 +8,14 @@ import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobsTable from "./AppliedJobsTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
+import { useSelector } from "react-redux";
 
-const skills = ["Html", "Css", "JavaScript", "React", "Cloud"];
+//const skills = ["Html", "Css", "JavaScript", "React", "Cloud"];
 const isResume = true;
 const Profile = () => {
   //By default false
   const [open, setOpen] = useState(false);
+  const {user} = useSelector(store=>store.auth);
   return (
     <div>
       <Navbar></Navbar>
@@ -25,10 +27,9 @@ const Profile = () => {
               <AvatarImage src={logo} alt="profilephoto"></AvatarImage>
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Full Name</h1>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit.Quaerat, consectetur.
+                {user?.profile?.bio}
               </p>
             </div>
           </div>
@@ -39,28 +40,28 @@ const Profile = () => {
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>pradeepsajnani18@gmail.com</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>6375275042</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         {/* Skills Showcase  */}
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
-            {skills.length != 0 ? (
-              skills.map((item, index) => <Badge key={index}>{item}</Badge>)
+            { user?.profile?.skills.length != 0 ? (
+              user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>)
             ) : (
-              <span>Skills Not Available </span>
+              <span>Skills Not Foun</span>
             )}
           </div>
         </div>
 
         {/* Resume Showcase  */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-md font-bold">Resume </Label>
+          <Label className="text-md font-bold"> </Label>
           {isResume ? (
             <a
               href="https://pradeep7867.github.io/Portfolio/images/Pradeep_Resume.pdf"
