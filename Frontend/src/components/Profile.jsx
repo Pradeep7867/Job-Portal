@@ -16,6 +16,10 @@ const Profile = () => {
   //By default false
   const [open, setOpen] = useState(false);
   const {user} = useSelector(store=>store.auth);
+  if (!user) {
+    return <div>Loading...</div>; // Show a loading state if user is not available
+  }
+
   return (
     <div>
       <Navbar></Navbar>
@@ -59,20 +63,20 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Resume Showcase  */}
+        {/* Resume Showcase */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-md font-bold"> </Label>
-          {isResume ? (
+          <Label className="text-md font-bold">Resume</Label>
+          {isResume && user.profile?.resumeOriginalName ? (
             <a
-              href="https://pradeep7867.github.io/Portfolio/images/Pradeep_Resume.pdf"
+              href={user?.profile?.resume}
               target="_blank"
-              alt="Resume"
+              rel="noopener noreferrer"
               className="text-blue-500 w-full hover:underline cursor-pointer"
             >
-              Pradeep's Resume
+              {user.profile.resumeOriginalName}
             </a>
           ) : (
-            <span>Resume Not Found </span>
+            <span>Resume Not Found</span>
           )}
         </div>
       </div>

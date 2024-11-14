@@ -2,16 +2,22 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const regiter = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, password, role } = req.body; 
+    const { fullname, email, phoneNumber, password, role } = req.body;
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
         message: "Something is Missing",
         success: false,
       });
-    }
+    };
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     const existinguser = await User.findOne({ email });
     if (existinguser) {
       return res.status(400).json({
@@ -25,9 +31,13 @@ export const regiter = async (req, res) => {
     const newUser = await User.create({
       fullname,
       email,
-      phoneNumber : phoneNumber,
+      phoneNumber: phoneNumber,
       password: hashedPassword,
       role,
+      role,
+            profile:{
+                profilePhoto:cloudResponse.secure_url,
+            }
     });
 
     //registration Sucessfully
@@ -98,7 +108,7 @@ export const login = async (req, res) => {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
-      phoneNumber: user.phonenumber,
+      phoneNumber: user.phoneNumber,
       role: user.role,
       profile: user.profile,
     };
@@ -139,18 +149,18 @@ export const logout = async (req, res) => {
 //update profile Function
 export const updateProfile = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, bio, skills } = req.body;
+    const { fullname, email, phoneNumber, bio, skills} = req.body;
     //console.log(fullname, email, phoneNumber, bio, skills);
     const file = req.file; // using Cloudinary
-   
-
     // Cloudinary section later here
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     let skillsArray;
-    if(skills)
-    {
+    if (skills) {
       skillsArray = skills.split(","); // Convert skills string into an array
     }
-    
+
     const userId = req.id; //Middle ware Authentication Part
     let user = await User.findById(userId);
 
@@ -161,22 +171,24 @@ export const updateProfile = async (req, res) => {
       });
     }
     // Update user fields if provided
-    if(fullname) user.fullname = fullname
-    if(email)  user.email = email
-    if(phoneNumber) user.phonenumber = phoneNumber
-    if(bio)  user.profile.bio = bio
-    if(skills) user.profile.skills = skillsArray;
-    
-    
+    if (fullname) user.fullname = fullname;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    if (skills) user.profile.skills = skillsArray;
 
     // resume section later here..
+    if (cloudResponse) {
+      user.profile.resume = cloudResponse.secure_url; //set the Cloudinary url
+      user.profile.resumeOriginalName = file.originalname; // save the orignal file Name
+    }
     await user.save(); // Save the updated user
-      // Prepare updated user response
+    // Prepare updated user response
     const loggedInUser = {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
-      phoneNumber: user.phonenumber,
+      phoneNumber: user.phoneNumber,
       role: user.role,
       profile: user.profile,
     };

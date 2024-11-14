@@ -20,15 +20,28 @@ import { toast } from "sonner";
 const UpdateProfileDialog = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
+  // Initialize input state consistently
   const [input, setInput] = useState({
     fullname: user?.fullname || "",
     email: user?.email || "",
     phoneNumber: user?.phoneNumber || "",
     bio: user?.profile?.bio || "",
     skills: user?.profile?.skills?.map((skill) => skill) || "",
-    file: user?.profile?.resume || "",
+    file: user?.profile?.resume || null,
   });
-  const dispatch = useDispatch();
+  // Update input state when user changes
+  useEffect(() => {
+    setInput({
+      fullname: user?.fullname || "",
+      email: user?.email || "",
+      phoneNumber: user?.phoneNumber || "",
+      bio: user?.profile?.bio || "",
+      skills: user?.profile?.skills?.join(", ") || "",
+      file: user?.profile?.resume || null,
+    });
+  }, [user]);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -39,21 +52,23 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     setInput({ ...input, file });
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const submitHandler = async (event) => {
+    event.preventDefault();
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
-    formData.append("skills", input.skills); // Send skills as a string
-
+    // Append each skill individually
+    formData.append("skills", input.skills);
+  
     if (input.file) {
       formData.append("file", input.file);
     }
 
+
     try {
+      setLoading(true);
       const res = await axios.post(
         `${USER_API_END_POINT}/profile/update`,
         formData,
@@ -62,23 +77,25 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
           withCredentials: true,
         }
       );
-
+      console.log(res.data); // Log response for debugging
       if (res.data.success) {
         dispatch(setUser(res.data.user));
+        console.log("Updated User:", res.data.user); //Debugging Purpose 
         toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Error updating profile");
     } finally {
-       // Close dialog after submission
-       setLoading(false);
-       setOpen(false);
+      // Close dialog after submission
+      setLoading(false);
+      setOpen(false);
     }
-   
     console.log(input);
   };
- 
+
   return (
     <Dialog open={open}>
       <DialogContent
@@ -169,8 +186,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             </div>
           </div>
           <DialogDescription>
-        Please fill out the details to update your profile.
-      </DialogDescription>
+            Please fill out the details to update your profile.
+          </DialogDescription>
           <DialogFooter>
             <Button type="submit" className="w-full my-4" disabled={loading}>
               {loading ? (
