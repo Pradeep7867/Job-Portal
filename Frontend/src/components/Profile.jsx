@@ -41,11 +41,13 @@ const Profile = () => {
             <Pen />
           </Button>
         </div>
+         {/* Email Showcase  */}
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
             <span>{user?.email}</span>
           </div>
+           {/* Phone Number Showcase  */}
           <div className="flex items-center gap-3 my-2">
             <Contact />
             <span>{user?.phoneNumber}</span>
@@ -73,7 +75,7 @@ const Profile = () => {
               rel="noopener noreferrer"
               className="text-blue-500 w-full hover:underline cursor-pointer"
             >
-              {user.profile.resumeOriginalName}
+              {user?.profile?.resumeOriginalName}
             </a>
           ) : (
             <span>Resume Not Found</span>

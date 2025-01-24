@@ -2,8 +2,7 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import getDataUri from "../utils/datauri.js";
-import cloudinary from "../utils/cloudinary.js";
+
 
 export const regiter = async (req, res) => {
   try {
@@ -14,9 +13,9 @@ export const regiter = async (req, res) => {
         success: false,
       });
     };
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    // const file = req.file;
+    // const fileUri = getDataUri(file);
+    // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     const existinguser = await User.findOne({ email });
     if (existinguser) {
@@ -34,10 +33,9 @@ export const regiter = async (req, res) => {
       phoneNumber: phoneNumber,
       password: hashedPassword,
       role,
-      role,
-            profile:{
-                profilePhoto:cloudResponse.secure_url,
-            }
+            // profile:{
+            //     profilePhoto:cloudResponse.secure_url,
+            // }
     });
 
     //registration Sucessfully
@@ -150,11 +148,9 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills} = req.body;
-    //console.log(fullname, email, phoneNumber, bio, skills);
+    // console.log(fullname, email, phoneNumber, bio, skills);
     const file = req.file; // using Cloudinary
     // Cloudinary section later here
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     let skillsArray;
     if (skills) {
@@ -178,10 +174,7 @@ export const updateProfile = async (req, res) => {
     if (skills) user.profile.skills = skillsArray;
 
     // resume section later here..
-    if (cloudResponse) {
-      user.profile.resume = cloudResponse.secure_url; //set the Cloudinary url
-      user.profile.resumeOriginalName = file.originalname; // save the orignal file Name
-    }
+   
     await user.save(); // Save the updated user
     // Prepare updated user response
     const loggedInUser = {

@@ -9,13 +9,13 @@ import userRoute from "./routes/user.routes.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js"; 
-
+import path from "path";
 //configuration 
 dotenv.config({}); // Load environment variables from .env
 
 const app = express();
 
-
+const _dirname = path.resolve();
 // Basic route
 // app.get('/home', (req, res) => {
 //   return res.status(200).json({
@@ -48,6 +48,14 @@ app.use("/api/v1/application", applicationRoute);
 // "http://localhost:8000/api/v1/user/login"
 // "http://localhost:8000/api/v1/user/profile/update"
 //...
+// Path Join Mehtod
+app.use(express.static(path.join(_dirname, "/frontend/dist")));
+
+//If Any Other Request Hit other then Routes we have mention so this will handle that request
+app.get('*',(_,res)=> {
+  res.sendFile(path.resolve(_dirname, "Frontend", "dist", "index.html"))
+});
+
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is Running at Port ${PORT}`);

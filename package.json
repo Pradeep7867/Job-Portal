@@ -4,8 +4,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dev": "nodemon backend/index.js",
+  "build": "cd Frontend && npm install && npm run build",
+  "start": "node backend/index.js",
+  "heroku-postbuild": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend",
+  "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
