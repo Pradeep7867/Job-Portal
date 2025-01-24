@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "@rollup/plugin-alias": "^5.1.1",
     "axios": "^1.7.7",
+    "backend": "file:..",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.0",

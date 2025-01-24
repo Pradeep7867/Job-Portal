@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
   "dev": "nodemon backend/index.js",
-  "build": "cd Frontend && npm install && npm run build",
-  "start": "node backend/index.js",
-  "heroku-postbuild": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend",
+    "build" : "npm install && npm install --prefix Frontend && npm run build --prefix Frontend",
+    "start": "nodemon backend/index.js",
   "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
