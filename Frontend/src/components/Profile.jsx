@@ -60,7 +60,7 @@ const Profile = () => {
             { user?.profile?.skills.length != 0 ? (
               user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>)
             ) : (
-              <span>Skills Not Foun</span>
+              <span>Skills Not Found</span>
             )}
           </div>
         </div>
