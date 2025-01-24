@@ -12,5 +12,3 @@ logs/
 *.log
 .env
 # Ignore build and dist folders
-Frontend/build/
-Frontend/dist/
