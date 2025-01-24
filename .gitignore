@@ -2,9 +2,7 @@
 backend/node_modules/
 Frontend/node_modules/
 
-# Ignore environment variable files
-backend/.env
-frontend/.env
+
 
 # Ignore any .DS_Store files (for macOS users)
 .DS_Store
@@ -12,5 +10,5 @@ frontend/.env
 # Logs
 logs/
 *.log
-
+.env
 
