@@ -49,9 +49,9 @@ app.use("/api/v1/application", applicationRoute);
 // "http://localhost:8000/api/v1/user/profile/update"
 //...
 // Path Join Mehtod
-app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.use(express.static(path.join(_dirname, "/Frontend/dist")));
 
-//If Any Other Request Hit other then Routes we have mention so this will handle that request
+//If Any Other Request Hit other then Routes we have mention so this will handle that request (Fall Back Route)
 app.get('*',(_,res)=> {
   res.sendFile(path.resolve(_dirname, "Frontend", "dist", "index.html"))
 });
