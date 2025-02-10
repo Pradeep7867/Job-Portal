@@ -21,8 +21,7 @@
 ```bash
 git clone https://github.com/Pradeep7867/Job-Portal.git
 ```
-### Running Live At :: 
-```bash
-https://job-portal-mocha-eight.vercel.app/
-```
+## Running Live At  
+[Job Portal Live Demo](https://job-portal-mocha-eight.vercel.app/)
+
 
